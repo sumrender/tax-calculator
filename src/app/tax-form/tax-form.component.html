@@ -1,0 +1,54 @@
+<div class="tax-form-container">
+  <form [formGroup]="taxForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-title>Tax Calculation Form</mat-card-title>
+      <mat-card-content>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Gross Annual Income</mat-label>
+          <input matInput formControlName="grossAnnualIncome" type="number" />
+          <app-error-icon
+            *ngIf="taxForm.get('grossAnnualIncome')?.invalid && taxForm.get('grossAnnualIncome')?.touched"></app-error-icon>
+          <mat-error *ngIf="taxForm.get('grossAnnualIncome')?.hasError('required')">Gross Annual Income is
+            required</mat-error>
+          <mat-error *ngIf="taxForm.get('grossAnnualIncome')?.hasError('min')">Gross Annual Income must be
+            positive</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Extra Income</mat-label>
+          <input matInput formControlName="extraIncome" type="number" />
+          <app-error-icon
+            *ngIf="taxForm.get('extraIncome')?.invalid && taxForm.get('extraIncome')?.touched"></app-error-icon>
+          <mat-error *ngIf="taxForm.get('extraIncome')?.hasError('required')">Extra Income is required</mat-error>
+          <mat-error *ngIf="taxForm.get('extraIncome')?.hasError('min')">Extra Income must be positive</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Deductions</mat-label>
+          <input matInput formControlName="deductions" type="number" />
+          <app-error-icon
+            *ngIf="taxForm.get('deductions')?.invalid && taxForm.get('deductions')?.touched"></app-error-icon>
+          <mat-error *ngIf="taxForm.get('deductions')?.hasError('required')">Deductions are required</mat-error>
+          <mat-error *ngIf="taxForm.get('deductions')?.hasError('min')">Deductions must be positive</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Age</mat-label>
+          <mat-select formControlName="age">
+            <mat-option value="<40">Below 40</mat-option>
+            <mat-option value=">=40&<60">40 - 59</mat-option>
+            <mat-option value=">=60">60 and above</mat-option>
+          </mat-select>
+          <app-error-icon *ngIf="taxForm.get('age')?.invalid && taxForm.get('age')?.touched"></app-error-icon>
+          <mat-error *ngIf="taxForm.get('age')?.hasError('required')">Age is required</mat-error>
+        </mat-form-field>
+
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="taxForm.invalid">Calculate Tax</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
